@@ -1,0 +1,55 @@
+/* Reset.module.css */
+
+.button {
+	display: block; /* Делаем кнопку блочным элементом */
+	/* margin: 20px
+		auto; Отступ сверху/снизу и центрирование по горизонтали */
+	width: 150px; /* Ширина кнопки */
+	height: 40px; /* Высота кнопки */
+	background-color: #8b0000; /* Темно-красный цвет фона (как у дракона) */
+	border: 3px
+		solid
+		#ffd700; /* Золотая рамка (ассоциация с рыцарем) */
+	border-radius: 5px; /* Легкое скругление углов */
+	color: #ffd700; /* Золотой цвет текста */
+	font-family:
+		'Press Start 2P',
+		cursive; /* Пиксельный шрифт для ретро-стиля */
+	font-size: 12px; /* Размер шрифта */
+	text-transform: uppercase; /* Все буквы заглавные */
+	text-align: center; /* Текст по центру */
+	line-height: 20px; /* Выравнивание текста по вертикали */
+	cursor: pointer; /* Курсор в виде указателя */
+	box-shadow: 0px
+		4px
+		0px
+		#4b0000; /* Тень для объемного эффекта */
+	transition: all
+		0.2s
+		ease; /* Плавные переходы при наведении */
+}
+
+.button:hover {
+	background-color: #a52a2a; /* Более светлый красный при наведении */
+	box-shadow: 0px
+		2px
+		0px
+		#4b0000; /* Уменьшение тени для эффекта "нажатия" */
+	transform: translateY(
+		2px
+	); /* Легкое смещение вниз */
+}
+
+.button:active {
+	background-color: #650000; /* Еще более темный красный при нажатии */
+	box-shadow: none; /* Убираем тень */
+	transform: translateY(
+		4px
+	); /* Больше смещаем вниз */
+}
+.button-container {
+	display: flex; /* Используем Flexbox для расположения кнопок */
+	flex-direction: column; /* Кнопки будут располагаться вертикально */
+	align-items: center; /* Центрируем кнопки по горизонтали */
+	gap: 2px; /* Расстояние между кнопками */
+}

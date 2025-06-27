@@ -1,0 +1,94 @@
+/* Field/Field.module.css */
+.fieldContainer {
+	position: relative; /* Чтобы можно было позиционировать рыцаря и дракона */
+	display: flex;
+	align-items: flex-end; /* Выравниваем по нижнему краю */
+	justify-content: center; /* Центрируем по горизонтали */
+	gap: 20px; /* Расстояние между элементами */
+}
+
+.field {
+	display: grid;
+	grid-template-columns: repeat(
+		3,
+		100px
+	);
+
+	justify-content: center;
+	grid-gap: 1px;
+	margin-top: 20px; /* Отступ сверху */
+	margin-bottom: 20px; /* Отступ снизу */
+}
+
+.cell {
+	width: 100px;
+	height: 100px;
+
+	background-image: url('/public/sprites/OneKlet.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	border: 2px
+		solid
+		#ccc;
+	cursor: inherit;
+	font-size: 24px;
+	text-align: center;
+	line-height: 100px;
+}
+.cell:hover {
+	transform: scale(
+		1.2
+	);
+}
+
+.cell_Cross {
+	width: 100px;
+	height: 100px;
+
+	background-image: url('/public/sprites/Krestik.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	border: 2px
+		solid
+		#ccc;
+	font-size: 24px;
+	text-align: center;
+	line-height: 100px;
+}
+.cell_Zero {
+	width: 100px;
+	height: 100px;
+
+	background-image: url('/public/sprites/Nolik.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	border: 2px
+		solid
+		#ccc;
+
+	font-size: 24px;
+	text-align: center;
+	line-height: 100px;
+}
+
+.knight {
+	position: absolute; /* Абсолютное позиционирование */
+	top: 465px;
+	left: 300px; /* Расстояние от левого края */
+	width: 100px; /* Ширина изображения */
+	height: auto; /* Автоматическая высота */
+}
+
+.dragon {
+	position: absolute; /* Абсолютное позиционирование */
+	top: 70px;
+	right: 150px; /* Расстояние от правого края */
+	width: 400px; /* Ширина изображения */
+	height: auto; /* Автоматическая высота */
+}
