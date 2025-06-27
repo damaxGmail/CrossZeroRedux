@@ -21,7 +21,7 @@ const GameLayout = ({
 	return (
 		<>
 			<div className={styles.gameZona}>
-				{/* Окно заполнения данных для регистрации и валидации */}
+
 				<Field field={field} onCellClick={handleCellClick} knightEffectActive={knightEffectActive}
 					dragonEffectActive={dragonEffectActive} />
 
@@ -30,8 +30,7 @@ const GameLayout = ({
 					currentPlayer={currentPlayer}
 				/>
 				<Reset onReset={onReset} ExitGame={ExitGame} />
-				{/* Окно заполнения доп. данных + валидация второго типа*/}
-				{/* Возможно Окно вывода данных якобы прошлых победителей (из БД)*/}
+
 			</div >
 		</>
 
