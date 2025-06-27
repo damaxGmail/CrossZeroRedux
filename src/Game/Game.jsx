@@ -1,4 +1,6 @@
 
+import { store } from '../store';
+
 import { Reset } from '../Reset/Reset'
 import { Field } from '../Field/Field'
 import { Information } from '../Information/Information'
@@ -8,7 +10,7 @@ import { useState, useEffect } from 'react';
 import { playSound } from '../Effect/Effect';
 
 const GameLayout = ({
-	field,
+	//field,
 	isDraw,
 	isGameEnded,
 	currentPlayer,
@@ -16,14 +18,19 @@ const GameLayout = ({
 	onReset,
 	ExitGame,
 	knightEffectActive,
-	dragonEffectActive }) => {
+	dragonEffectActive
+}) => {
 
 	return (
 		<>
 			<div className={styles.gameZona}>
 
-				<Field field={field} onCellClick={handleCellClick} knightEffectActive={knightEffectActive}
-					dragonEffectActive={dragonEffectActive} />
+				<Field
+					// field={field}
+					onCellClick={handleCellClick}
+					knightEffectActive={knightEffectActive}
+					dragonEffectActive={dragonEffectActive}
+				/>
 
 				<Information isDraw={isDraw}
 					isGameEnded={isGameEnded}
@@ -42,10 +49,21 @@ export const Game = () => {
 	const [currentPlayer, setCurrentPlayer] = useState('X');
 	const [isGameEnded, setIsGameEnded] = useState(false);
 	const [isDraw, setIsDraw] = useState(false);//ничья
-	const [field, setField] = useState(Array(9).fill(''));
 
+	const [field, setField] = useState(store.getState().field);
 	const [knightEffectActive, setKnightEffectActive] = useState(false);
 	const [dragonEffectActive, setDragonEffectActive] = useState(false);
+
+
+	// useEffect(() => {
+	//         // Подписываемся на изменения состояния в хранилище
+	//         const unsubscribe = store.subscribe(() => {
+	//             setField(store.getState().field); // Обновляем поле из хранилища
+	//         });
+
+	//         // Отписываемся при размонтировании компонента
+	//         return () => unsubscribe();
+	//     }, []);
 
 	//Изменение курсора
 	useEffect(() => {
@@ -61,11 +79,16 @@ export const Game = () => {
 	const handleCellClick = (index) => {
 		playSound(currentPlayer, 'move');
 
-		if (field[index] || isGameEnded) return;
+		const currentState = store.getState();
+		const { field } = currentState;
+
+		if (field[index] || currentState.isGameEnded) return;
 
 		const newField = [...field];
 		newField[index] = currentPlayer;
-		setField(newField);
+
+		//setField(newField);
+		store.dispatch({ type: 'SET_FIELD', payload: newField });
 
 		if (currentPlayer === 'X') {
 			setKnightEffectActive(true); // Включаем эффект для рыцаря
@@ -135,7 +158,7 @@ export const Game = () => {
 	}
 
 	return <GameLayout
-		field={field}
+		//field={field}
 		isDraw={isDraw}
 		isGameEnded={isGameEnded}
 		currentPlayer={currentPlayer}

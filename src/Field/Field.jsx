@@ -1,28 +1,35 @@
 import styles from './Field.module.css'
+import { store } from '../store';
 
-const FieldLayout = ({ field, onCellClick, knightEffectActive, dragonEffectActive }) => {
+const FieldLayout = ({
+	//field,
+	onCellClick, knightEffectActive, dragonEffectActive }) => {
+
+	const currentState = store.getState();
+	const { field } = currentState;
 
 	return (
 		<>
 			<div className={styles.field}>
 
-				{field.map((cell, index) => {
-					const cellClass =
-						cell === 'X'
-							? styles.cell_Cross
-							: cell === '0'
-								? styles.cell_Zero
-								: styles.cell;
+				{
+					field.map((cell, index) => {
+						const cellClass =
+							cell === 'X'
+								? styles.cell_Cross
+								: cell === '0'
+									? styles.cell_Zero
+									: styles.cell;
 
-					return (
-						<button
-							key={index}
-							className={cellClass}
-							onClick={() => onCellClick(index)}
-						>
-						</button>
-					);
-				})}
+						return (
+							<button
+								key={index}
+								className={cellClass}
+								onClick={() => onCellClick(index)}
+							>
+							</button>
+						);
+					})}
 
 			</div>
 			<img
@@ -39,9 +46,11 @@ const FieldLayout = ({ field, onCellClick, knightEffectActive, dragonEffectActiv
 	);
 }
 
-export const Field = ({ field, onCellClick, knightEffectActive, dragonEffectActive }) => {
+export const Field = ({
+	//field,
+	onCellClick, knightEffectActive, dragonEffectActive }) => {
 	return <FieldLayout
-		field={field}
+		//field={field}
 		onCellClick={onCellClick}
 		knightEffectActive={knightEffectActive}
 		dragonEffectActive={dragonEffectActive} />
