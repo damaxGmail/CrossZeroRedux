@@ -4,7 +4,6 @@ import { Game } from './Game/Game';
 
 import './App.css'
 
-
 const AppLayout = (
 	{ page,
 		goToGame
@@ -15,10 +14,8 @@ const AppLayout = (
 	return (
 		<>
 			<div>
-
 				{page === 'screensaver' && <ScreenSaver onStart={goToGame} />}
 				{page === 'game' && <Game />}
-
 			</div>
 		</>
 	);
