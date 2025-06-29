@@ -10,15 +10,15 @@ import { useState, useEffect } from 'react';
 import { playSound } from '../Effect/Effect';
 
 const GameLayout = ({
-	//field,
+
 	isDraw,
 	isGameEnded,
 	currentPlayer,
 	handleCellClick,
+
 	onReset,
-	ExitGame,
-	knightEffectActive,
-	dragonEffectActive
+	ExitGame
+
 }) => {
 
 	return (
@@ -26,17 +26,17 @@ const GameLayout = ({
 			<div className={styles.gameZona}>
 
 				<Field
-					// field={field}
 					onCellClick={handleCellClick}
-					knightEffectActive={knightEffectActive}
-					dragonEffectActive={dragonEffectActive}
 				/>
 
 				<Information isDraw={isDraw}
 					isGameEnded={isGameEnded}
 					currentPlayer={currentPlayer}
 				/>
-				<Reset onReset={onReset} ExitGame={ExitGame} />
+				<Reset
+					onReset={onReset}
+					ExitGame={ExitGame}
+				/>
 
 			</div >
 		</>
@@ -55,15 +55,19 @@ export const Game = () => {
 	const [dragonEffectActive, setDragonEffectActive] = useState(false);
 
 
-	// useEffect(() => {
-	//         // Подписываемся на изменения состояния в хранилище
-	//         const unsubscribe = store.subscribe(() => {
-	//             setField(store.getState().field); // Обновляем поле из хранилища
-	//         });
+	useEffect(() => {
+		// Подписываемся на изменения состояния в хранилище
+		const unsubscribe = store.subscribe(() => {
+			setField(store.getState().field);
+			setKnightEffectActive(store.getState().knightEffectActive);
+			setDragonEffectActive(store.getState().dragonEffectActive);
 
-	//         // Отписываемся при размонтировании компонента
-	//         return () => unsubscribe();
-	//     }, []);
+		});
+
+		// Отписываемся при размонтировании компонента
+		return () => unsubscribe();
+	}, []);
+
 
 	//Изменение курсора
 	useEffect(() => {
@@ -91,9 +95,11 @@ export const Game = () => {
 		store.dispatch({ type: 'SET_FIELD', payload: newField });
 
 		if (currentPlayer === 'X') {
-			setKnightEffectActive(true); // Включаем эффект для рыцаря
+			//setKnightEffectActive(true); // Включаем эффект для рыцаря
+			store.dispatch({ type: 'SET_KNIGHT_EFFECT_ACTIVE', payload: true });
 		} else {
-			setDragonEffectActive(true); // Включаем эффект для дракона
+			//setDragonEffectActive(true); // Включаем эффект для дракона
+			store.dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: true });
 		}
 
 		if (!checkWin(newField)) {
@@ -102,8 +108,10 @@ export const Game = () => {
 
 		//  эффект длиться только пол секунды
 		setTimeout(() => {
-			setKnightEffectActive(false);
-			setDragonEffectActive(false);
+			// setKnightEffectActive(false);
+			// setDragonEffectActive(false);
+			store.dispatch({ type: 'SET_KNIGHT_EFFECT_ACTIVE', payload: false });
+			store.dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: false });
 		}, 500);
 
 	};
@@ -149,7 +157,7 @@ export const Game = () => {
 		setCurrentPlayer('X');
 		setIsGameEnded(false);
 		setIsDraw(false);
-		setField(Array(9).fill(''));
+		setField(Array(9).fill(''));  //инициализация !!!
 		playSound(currentPlayer, 'click');
 	};
 	const handleExitGame = () => {
@@ -158,15 +166,15 @@ export const Game = () => {
 	}
 
 	return <GameLayout
-		//field={field}
+
 		isDraw={isDraw}
 		isGameEnded={isGameEnded}
 		currentPlayer={currentPlayer}
 		handleCellClick={handleCellClick}
+
 		onReset={handleReset}
 		ExitGame={handleExitGame}
-		knightEffectActive={knightEffectActive}
-		dragonEffectActive={dragonEffectActive}
+
 	/>;
 };
 

@@ -14,6 +14,11 @@ export const reducer = (state = initialState, action) => {
 			return { ...state, isGameEnded: payload };
 		case 'SET_DRAW':
 			return { ...state, isDraw: payload };
+		case 'SET_KNIGHT_EFFECT_ACTIVE':
+			return { ...state, knightEffectActive: payload };
+		case 'SET_DRAGON_EFFECT_ACTIVE':
+			return { ...state, dragonEffectActive: payload };
+
 		default:
 			return state;
 	}

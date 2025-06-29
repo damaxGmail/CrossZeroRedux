@@ -3,10 +3,13 @@ import { store } from '../store';
 
 const FieldLayout = ({
 	//field,
-	onCellClick, knightEffectActive, dragonEffectActive }) => {
+	onCellClick
+	//,
+	//knightEffectActive, dragonEffectActive
+}) => {
 
 	const currentState = store.getState();
-	const { field } = currentState;
+	const { field, knightEffectActive, dragonEffectActive } = currentState;
 
 	return (
 		<>
@@ -48,10 +51,15 @@ const FieldLayout = ({
 
 export const Field = ({
 	//field,
-	onCellClick, knightEffectActive, dragonEffectActive }) => {
+	onCellClick,
+	// knightEffectActive,
+	// dragonEffectActive
+}) => {
 	return <FieldLayout
 		//field={field}
 		onCellClick={onCellClick}
-		knightEffectActive={knightEffectActive}
-		dragonEffectActive={dragonEffectActive} />
+	// knightEffectActive={knightEffectActive}
+	// dragonEffectActive={dragonEffectActive}
+
+	/>
 }

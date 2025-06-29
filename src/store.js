@@ -2,6 +2,7 @@ import { reducer } from './reducer'
 
 const createStore = (reducer, initialState) => {
 	let state = initialState;
+	const listeners = [];
 
 	return {
 		dispatch: (action) => {
@@ -11,7 +12,14 @@ const createStore = (reducer, initialState) => {
 		initializeState: (newState) => {
 			store.dispatch({ type: 'INITIALIZE_STATE', payload: newState });
 		},
-	};
+		subscribe: (listener) => {
+			listeners.push(listener);
+			return () => {
+				const index = listeners.indexOf(listener);
+				if (index !== -1) listeners.splice(index, 1);
+			};
+		},
+	}
 };
 
 export const store = createStore(reducer, {});
