@@ -1,15 +1,16 @@
 import styles from './Field.module.css'
 import { store } from '../store';
 
-const FieldLayout = ({
-	//field,
-	onCellClick
-	//,
-	//knightEffectActive, dragonEffectActive
-}) => {
+import { handleCellClick } from '../ServiceFunction/General';
+
+const FieldLayout = () => {
 
 	const currentState = store.getState();
 	const { field, knightEffectActive, dragonEffectActive } = currentState;
+
+	console.log('Knight Effect Active:', knightEffectActive);
+	console.log('Dragon Effect Active:', dragonEffectActive);
+
 
 	return (
 		<>
@@ -28,7 +29,7 @@ const FieldLayout = ({
 							<button
 								key={index}
 								className={cellClass}
-								onClick={() => onCellClick(index)}
+								onClick={() => handleCellClick(store.getState(), index, store.dispatch)}
 							>
 							</button>
 						);
@@ -49,17 +50,8 @@ const FieldLayout = ({
 	);
 }
 
-export const Field = ({
-	//field,
-	onCellClick,
-	// knightEffectActive,
-	// dragonEffectActive
-}) => {
+export const Field = () => {
 	return <FieldLayout
-		//field={field}
-		onCellClick={onCellClick}
-	// knightEffectActive={knightEffectActive}
-	// dragonEffectActive={dragonEffectActive}
 
 	/>
 }

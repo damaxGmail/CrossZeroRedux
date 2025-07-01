@@ -2,27 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import { store } from './store'
 
-import { ScreenSaver } from './ScreenSaver/ScreenSaver';
-import { Game } from './Game/Game';
-
-import './App.css'
-
-const AppLayout = (
-	{ page,
-		goToGame
-	}
-) => {
+import { AppLayout } from './Layouts/AppLayout';
 
 
-	return (
-		<>
-			<div>
-				{page === 'screensaver' && <ScreenSaver onStart={goToGame} />}
-				{page === 'game' && <Game />}
-			</div>
-		</>
-	);
-}
 export const App = () => {
 	const [page, setPage] = useState('screensaver');
 

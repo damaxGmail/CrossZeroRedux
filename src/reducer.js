@@ -1,7 +1,12 @@
+
 const initialState = {};
 
 export const reducer = (state = initialState, action) => {
 	const { type, payload } = action;
+
+	// console.log('Action:', action);
+	// console.log('Current state:', state);
+	// console.log('-----');
 
 	switch (type) {
 		case 'INITIALIZE_STATE':
@@ -18,6 +23,9 @@ export const reducer = (state = initialState, action) => {
 			return { ...state, knightEffectActive: payload };
 		case 'SET_DRAGON_EFFECT_ACTIVE':
 			return { ...state, dragonEffectActive: payload };
+
+
+
 
 		default:
 			return state;
