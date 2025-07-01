@@ -3,12 +3,14 @@ import { store } from '../store';
 import { playSound } from '../Effect/Effect';
 
 // Обработчик клика по клетке
-export const handleCellClick = (currentState, index, dispatch) => {
+export const handleCellClick = (currentState1, index, dispatch) => {
+
+	const currentState = store.getState();
 	const { field, currentPlayer, isGameEnded } = currentState;
 
 	//console.log('Field state:', field);
 
-	//const currentState = store.getState();
+
 	// const { field } = currentState;
 
 	if (field[index] || isGameEnded) return;
@@ -27,7 +29,7 @@ export const handleCellClick = (currentState, index, dispatch) => {
 		dispatch({ type: 'SET_KNIGHT_EFFECT_ACTIVE', payload: true });
 	} else {
 		//setDragonEffectActive(true); // Включаем эффект для дракона
-		store.dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: true });
+		dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: true });
 	}
 
 	// Изменение курсора

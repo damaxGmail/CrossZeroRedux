@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import styles from './ScreenSaver.module.css';
 
@@ -6,7 +7,7 @@ const ScreenSaverLayout = ({ isPressed, showText, handleScreenClick }) => {
 		<div className={styles.screensaver} onClick={handleScreenClick}>
 			{/* Картинка заставки */}
 			<img
-				src="/public/GameStart_4.png"
+				src="/GameStart_4.png"
 				alt="Game Start"
 				className={`${styles.image} ${isPressed ? styles.pressed : ''}`}
 			/>
