@@ -4,13 +4,15 @@ const initialState = {};
 export const reducer = (state = initialState, action) => {
 	const { type, payload } = action;
 
-	// console.log('Action:', action);
-	// console.log('Current state:', state);
-	// console.log('-----');
+	//if (type === 'SET_KNIGHT_EFFECT_ACTIVE') {
+	// console.log('   Action:', action);
+	// console.log('   Current state:', state);
+	// console.log('   -----');
+	//}
 
 	switch (type) {
 		case 'INITIALIZE_STATE':
-			return { ...state, ...action.payload };
+			return { ...state, ...payload };
 		case 'SET_FIELD':
 			return { ...state, field: payload };
 		case 'SET_CURRENT_PLAYER':
@@ -23,8 +25,6 @@ export const reducer = (state = initialState, action) => {
 			return { ...state, knightEffectActive: payload };
 		case 'SET_DRAGON_EFFECT_ACTIVE':
 			return { ...state, dragonEffectActive: payload };
-
-
 
 
 		default:

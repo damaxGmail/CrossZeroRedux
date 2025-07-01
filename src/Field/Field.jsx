@@ -1,15 +1,24 @@
 import styles from './Field.module.css'
 import { store } from '../store';
 
+import { useEffect, useState } from 'react';
+
 import { handleCellClick } from '../ServiceFunction/General';
 
 const FieldLayout = () => {
 
 	const currentState = store.getState();
-	const { field, knightEffectActive, dragonEffectActive } = currentState;
+	const { knightEffectActive, dragonEffectActive } = currentState;
 
-	console.log('Knight Effect Active:', knightEffectActive);
-	console.log('Dragon Effect Active:', dragonEffectActive);
+	const [field, setField] = useState(store.getState().field);
+
+	useEffect(() => {
+		const unsubscribe = store.subscribe(() => {
+			setField(store.getState().field);
+		});
+
+		return () => unsubscribe();
+	}, []);
 
 
 	return (
@@ -51,6 +60,7 @@ const FieldLayout = () => {
 }
 
 export const Field = () => {
+
 	return <FieldLayout
 
 	/>

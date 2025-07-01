@@ -1,4 +1,4 @@
-//import { store } from '../store';
+import { store } from '../store';
 
 import { playSound } from '../Effect/Effect';
 
@@ -6,7 +6,7 @@ import { playSound } from '../Effect/Effect';
 export const handleCellClick = (currentState, index, dispatch) => {
 	const { field, currentPlayer, isGameEnded } = currentState;
 
-	console.log('Field state:', field);
+	//console.log('Field state:', field);
 
 	//const currentState = store.getState();
 	// const { field } = currentState;
@@ -27,12 +27,22 @@ export const handleCellClick = (currentState, index, dispatch) => {
 		dispatch({ type: 'SET_KNIGHT_EFFECT_ACTIVE', payload: true });
 	} else {
 		//setDragonEffectActive(true); // Включаем эффект для дракона
-		dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: true });
+		store.dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: true });
+	}
+
+	// Изменение курсора
+	if (currentPlayer === 'X') {
+		document.body.style.cursor = "url('/kursors/Arm_Dracon_64.ico'), auto"; // Курсор для дракона
+	} else {
+
+		document.body.style.cursor = "url('/kursors/Arm_knight_64.ico'), auto"; // Курсор для рыцаря
 	}
 
 	if (!checkWin(newField, currentState, dispatch)) {
+
 		//setCurrentPlayer(currentPlayer === 'X' ? '0' : 'X');
 		dispatch({ type: 'SET_CURRENT_PLAYER', payload: currentPlayer === 'X' ? '0' : 'X' });
+		//console.log("поменяли currentPlayer на ", store.getState());
 	}
 
 	//  эффект длиться только пол секунды

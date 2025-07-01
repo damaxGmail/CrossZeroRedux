@@ -54,6 +54,22 @@ export const Game = () => {
 	const [knightEffectActive, setKnightEffectActive] = useState(false);
 	const [dragonEffectActive, setDragonEffectActive] = useState(false);
 
+	//*****
+	store.dispatch({
+		type: 'INITIALIZE_STATE',
+		payload: {
+			field: Array(9).fill(''),
+			currentPlayer: 'X',
+			isGameEnded: false,
+			isDraw: false,
+			knightEffectActive: false,
+			dragonEffectActive: false,
+		}
+	});
+
+
+	//******
+
 
 	useEffect(() => {
 		// Подписываемся на изменения состояния в хранилище
@@ -69,22 +85,11 @@ export const Game = () => {
 			setCurrentPlayer(currentState.currentPlayer);
 
 		});
+		document.body.style.cursor = "url('/kursors/Arm_knight_64.ico'), auto";
 
 		// Отписываемся при размонтировании компонента
 		return () => unsubscribe();
 	}, []);
-
-
-	//Изменение курсора
-	useEffect(() => {
-		console.log("Изменение курсора ", currentPlayer);
-		if (currentPlayer === 'X') {
-			document.body.style.cursor = "url('/kursors/Arm_knight_64.ico'), auto"; // Курсор для рыцаря (крестик)
-		} else {
-			document.body.style.cursor = "url('/kursors/Arm_Dracon_64.ico'), auto"; // Курсор для дракона (нолик)
-		}
-	}, [currentPlayer]);
-
 
 	// Обработчик кнопки "Начать заново"
 	const handleReset = () => {
