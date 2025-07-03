@@ -1,8 +1,7 @@
 import styles from './Field.module.css'
 import { useEffect, useState } from 'react';
 
-import { store } from '../store';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import { selectCurrentState, selectField } from '../selectors'
 
 
@@ -10,6 +9,7 @@ import { handleCellClick } from '../ServiceFunction/General';
 
 const FieldLayout = () => {
 
+	const store = useStore();
 	// const currentState = store.getState();
 	const { knightEffectActive, dragonEffectActive } = useSelector(selectCurrentState);
 
@@ -43,7 +43,7 @@ const FieldLayout = () => {
 								key={index}
 								className={cellClass}
 								//onClick={() => handleCellClick(store.getState(), index, store.dispatch)}
-								onClick={() => handleCellClick(useSelector(selectCurrentState), index, store.dispatch)}
+								onClick={() => handleCellClick(useSelector(selectCurrentState), index)}
 							>
 							</button>
 						);

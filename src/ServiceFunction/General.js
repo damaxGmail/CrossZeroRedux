@@ -1,9 +1,19 @@
-import { store } from '../store';
+
+import { useDispatch } from 'react-redux';
+import {
+	SET_FIELD,
+	SET_CURRENT_PLAYER,
+	SET_KNIGHT_EFFECT_ACTIVE,
+	SET_DRAGON_EFFECT_ACTIVE,
+	SET_GAME_ENDED,
+	SET_DRAW
+} from '../action'
 
 import { playSound } from '../Effect/Effect';
 
 // Обработчик клика по клетке
-export const handleCellClick = (currentState1, index, dispatch) => {
+export const handleCellClick = (currentState1, index) => {
+	const dispatch = useDispatch();
 
 	const currentState = store.getState();
 	const { field, currentPlayer, isGameEnded } = currentState;
@@ -13,21 +23,23 @@ export const handleCellClick = (currentState1, index, dispatch) => {
 
 	if (field[index] || isGameEnded) return;
 
-	dispatch({ type: 'SET_CURRENT_PLAYER', payload: currentPlayer });//???
+	dispatch(SET_CURRENT_PLAYER(currentPlayer));
 	playSound(currentPlayer, 'move');
 
 	const newField = [...field];
 	newField[index] = currentPlayer;
 
 	//setField(newField);
-	dispatch({ type: 'SET_FIELD', payload: newField });
+	dispatch(SET_FIELD(newField));
 
 	if (currentPlayer === 'X') {
 		//setKnightEffectActive(true); // Включаем эффект для рыцаря
-		dispatch({ type: 'SET_KNIGHT_EFFECT_ACTIVE', payload: true });
+		//dispatch({ type: 'SET_KNIGHT_EFFECT_ACTIVE', payload: true });
+		dispatch(SET_KNIGHT_EFFECT_ACTIVE(true));
 	} else {
 		//setDragonEffectActive(true); // Включаем эффект для дракона
-		dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: true });
+		//dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: true });
+		dispatch(SET_DRAGON_EFFECT_ACTIVE(true));
 	}
 
 	// Изменение курсора
@@ -38,10 +50,11 @@ export const handleCellClick = (currentState1, index, dispatch) => {
 		document.body.style.cursor = "url('/kursors/Arm_knight_64.ico'), auto"; // Курсор для рыцаря
 	}
 
-	if (!checkWin(newField, currentState, dispatch)) {
+	if (!checkWin(newField, currentState)) {
 
 		//setCurrentPlayer(currentPlayer === 'X' ? '0' : 'X');
-		dispatch({ type: 'SET_CURRENT_PLAYER', payload: currentPlayer === 'X' ? '0' : 'X' });
+		//dispatch({ type: 'SET_CURRENT_PLAYER', payload: currentPlayer === 'X' ? '0' : 'X' });
+		dispatch(SET_CURRENT_PLAYER(currentPlayer === 'X' ? '0' : 'X'));
 	}
 
 	//  эффект длиться только пол секунды
@@ -49,15 +62,22 @@ export const handleCellClick = (currentState1, index, dispatch) => {
 
 		// setKnightEffectActive(false);
 		// setDragonEffectActive(false);
-		dispatch({ type: 'SET_KNIGHT_EFFECT_ACTIVE', payload: false });
-		dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: false });
+
+		//dispatch({ type: 'SET_KNIGHT_EFFECT_ACTIVE', payload: false });
+		//dispatch({ type: 'SET_DRAGON_EFFECT_ACTIVE', payload: false });
+
+		dispatch(SET_KNIGHT_EFFECT_ACTIVE(false));
+		dispatch(SET_DRAGON_EFFECT_ACTIVE(false));
+
 	}, 500);
 
 };
 
 
 //проверка результата игры
-export const checkWin = (newField, currentState, dispatch) => {
+export const checkWin = (newField, currentState) => {
+	const dispatch = useDispatch();
+
 	const { currentPlayer } = currentState;
 
 	const WIN_PATTERNS = [
@@ -76,7 +96,9 @@ export const checkWin = (newField, currentState, dispatch) => {
 		}
 		else if (newField[first] === newField[second] && newField[first] === newField[three]) {
 			//setIsGameEnded(true);
-			dispatch({ type: 'SET_GAME_ENDED', payload: true });
+			//dispatch({ type: 'SET_GAME_ENDED', payload: true });
+			dispatch(SET_GAME_ENDED(true));
+
 			playSound(currentPlayer, 'win');
 			return true;
 		}
@@ -86,9 +108,10 @@ export const checkWin = (newField, currentState, dispatch) => {
 
 			//setIsGameEnded(true);
 			//setIsDraw(true);
-			dispatch({ type: 'SET_GAME_ENDED', payload: true });
-			dispatch({ type: 'SET_DRAW', payload: true });
-
+			//dispatch({ type: 'SET_GAME_ENDED', payload: true });
+			//dispatch({ type: 'SET_DRAW', payload: true });
+			dispatch(SET_GAME_ENDED(true));
+			dispatch(SET_DRAW(true));
 
 			playSound(currentPlayer, 'draw');
 			return false;
