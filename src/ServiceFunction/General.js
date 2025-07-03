@@ -8,8 +8,6 @@ export const handleCellClick = (currentState1, index, dispatch) => {
 	const currentState = store.getState();
 	const { field, currentPlayer, isGameEnded } = currentState;
 
-	//console.log('Field state:', field);
-
 
 	// const { field } = currentState;
 
@@ -44,7 +42,6 @@ export const handleCellClick = (currentState1, index, dispatch) => {
 
 		//setCurrentPlayer(currentPlayer === 'X' ? '0' : 'X');
 		dispatch({ type: 'SET_CURRENT_PLAYER', payload: currentPlayer === 'X' ? '0' : 'X' });
-		//console.log("поменяли currentPlayer на ", store.getState());
 	}
 
 	//  эффект длиться только пол секунды

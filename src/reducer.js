@@ -1,14 +1,8 @@
 
-const initialState = {};
+export const initialState = {};
 
 export const reducer = (state = initialState, action) => {
 	const { type, payload } = action;
-
-	//if (type === 'SET_KNIGHT_EFFECT_ACTIVE') {
-	// console.log('   Action:', action);
-	// console.log('   Current state:', state);
-	// console.log('   -----');
-	//}
 
 	switch (type) {
 		case 'INITIALIZE_STATE':

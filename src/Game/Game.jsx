@@ -2,6 +2,9 @@
 
 import { store } from '../store';
 
+import { useSelector } from 'react-redux';
+import { selectCurrentState, selectField } from '../selectors'
+
 import { Reset } from '../Reset/Reset'
 import { Field } from '../Field/Field'
 import { Information } from '../Information/Information'
@@ -51,7 +54,7 @@ export const Game = () => {
 	const [isGameEnded, setIsGameEnded] = useState(false);
 	const [isDraw, setIsDraw] = useState(false);//ничья
 
-	const [field, setField] = useState(store.getState().field);
+	const [field, setField] = useState(useSelector(selectField));
 	const [knightEffectActive, setKnightEffectActive] = useState(false);
 	const [dragonEffectActive, setDragonEffectActive] = useState(false);
 
@@ -75,7 +78,7 @@ export const Game = () => {
 	useEffect(() => {
 		// Подписываемся на изменения состояния в хранилище
 		const unsubscribe = store.subscribe(() => {
-			const currentState = store.getState();
+			const currentState = useSelector(selectCurrentState);
 
 			setField(currentState.field);
 			setKnightEffectActive(currentState.knightEffectActive);
