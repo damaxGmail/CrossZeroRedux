@@ -56,18 +56,19 @@ export const Game = () => {
 	const [dragonEffectActive, setDragonEffectActive] = useState(false);
 
 	//*****
-	store.dispatch({
-		type: 'INITIALIZE_STATE',
-		payload: {
-			field: Array(9).fill(''),
-			currentPlayer: 'X',
-			isGameEnded: false,
-			isDraw: false,
-			knightEffectActive: false,
-			dragonEffectActive: false,
-		}
-	});
-
+	useEffect(() => {
+		store.dispatch({
+			type: 'INITIALIZE_STATE',
+			payload: {
+				field: Array(9).fill(''),
+				currentPlayer: 'X',
+				isGameEnded: false,
+				isDraw: false,
+				knightEffectActive: false,
+				dragonEffectActive: false,
+			}
+		});
+	}, []);
 
 	//******
 
