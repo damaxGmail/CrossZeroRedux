@@ -11,6 +11,7 @@ export const store = createStore(reducer);
 // 	return {
 // 		dispatch: (action) => {
 // 			state = reducer(state, action);
+//listeners.forEach((listener) => listener());
 // 		},
 // 		getState: () => state,
 // 		initializeState: (newState) => {
