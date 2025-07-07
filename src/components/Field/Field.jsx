@@ -1,28 +1,21 @@
 import styles from './Field.module.css'
-import { useEffect, useState } from 'react';
 
-import { useSelector, useStore } from 'react-redux';
-import { selectCurrentState, selectField } from '../../selectors'
+import { useSelector, useDispatch } from 'react-redux';
+import { selectField, selectEffects, selectCurrentState } from '../../selectors'
 
-
-import { handleCellClick } from '../../ServiceFunction/General';
+import { handleCellClick as handleCellClickLogic } from '../../ServiceFunction/General';
 
 const FieldLayout = () => {
+	const dispatch = useDispatch();
 
-	const store = useStore();
-	// const currentState = store.getState();
-	const { knightEffectActive, dragonEffectActive } = useSelector(selectCurrentState);
+	const field = useSelector(selectField);
+	const { knightEffectActive, dragonEffectActive } = useSelector(selectEffects);
 
-	//const [field, setField] = useState(store.getState().field);
-	const [field, setField] = useState(useSelector(selectField));
+	const currentState = useSelector(selectCurrentState);
 
-	useEffect(() => {
-		const unsubscribe = store.subscribe(() => {
-			setField(useSelector(selectField));
-		});
-
-		return () => unsubscribe();
-	}, []);
+	const handleCellClick = (index) => {
+		handleCellClickLogic(dispatch, currentState, index);
+	};
 
 
 	return (
@@ -42,8 +35,7 @@ const FieldLayout = () => {
 							<button
 								key={index}
 								className={cellClass}
-								//onClick={() => handleCellClick(store.getState(), index, store.dispatch)}
-								onClick={() => handleCellClick(useSelector(selectCurrentState), index)}
+								onClick={() => handleCellClick(index)}
 							>
 							</button>
 						);

@@ -1,28 +1,21 @@
-/* eslint-disable no-unused-vars */
 
-import { store } from '../../store';
-
-import { useSelector } from 'react-redux';
-import { selectCurrentState, selectField } from '../../selectors'
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCurrentState } from '../../selectors'
 
 import { Reset } from '../Reset/Reset'
 import { Field } from '../Field/Field'
 import { Information } from '../Information/Information'
 
 import styles from './Game.module.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { playSound } from '../Effect/Effect';
 
-
 const GameLayout = ({
-
 	isDraw,
 	isGameEnded,
 	currentPlayer,
-
 	onReset,
 	ExitGame
-
 }) => {
 
 	return (
@@ -31,8 +24,8 @@ const GameLayout = ({
 
 				<Field
 				/>
-
-				<Information isDraw={isDraw}
+				<Information
+					isDraw={isDraw}
 					isGameEnded={isGameEnded}
 					currentPlayer={currentPlayer}
 				/>
@@ -40,7 +33,6 @@ const GameLayout = ({
 					onReset={onReset}
 					ExitGame={ExitGame}
 				/>
-
 			</div >
 		</>
 
@@ -48,19 +40,12 @@ const GameLayout = ({
 }
 
 export const Game = () => {
+	const dispatch = useDispatch();
 
+	const { currentPlayer, isGameEnded, isDraw } = useSelector(selectCurrentState);
 
-	const [currentPlayer, setCurrentPlayer] = useState('X');
-	const [isGameEnded, setIsGameEnded] = useState(false);
-	const [isDraw, setIsDraw] = useState(false);//ничья
-
-	const [field, setField] = useState(useSelector(selectField));
-	const [knightEffectActive, setKnightEffectActive] = useState(false);
-	const [dragonEffectActive, setDragonEffectActive] = useState(false);
-
-	//*****
 	useEffect(() => {
-		store.dispatch({
+		dispatch({
 			type: 'INITIALIZE_STATE',
 			payload: {
 				field: Array(9).fill(''),
@@ -71,40 +56,13 @@ export const Game = () => {
 				dragonEffectActive: false,
 			}
 		});
-	}, []);
-
-
-	//******
-
-
-	useEffect(() => {
-		// Подписываемся на изменения состояния в хранилище
-		const unsubscribe = store.subscribe(() => {
-			const currentState = useSelector(selectCurrentState);
-
-			setField(currentState.field);
-			setKnightEffectActive(currentState.knightEffectActive);
-			setDragonEffectActive(currentState.dragonEffectActive);
-
-			setIsGameEnded(currentState.isGameEnded);
-			setIsDraw(currentState.isDraw);
-			setCurrentPlayer(currentState.currentPlayer);
-
-		});
 		document.body.style.cursor = "url('/kursors/Arm_knight_64.ico'), auto";
-
-		// Отписываемся при размонтировании компонента
-		return () => unsubscribe();
-	}, []);
+	}, [dispatch]);
 
 	// Обработчик кнопки "Начать заново"
 	const handleReset = () => {
-		// setCurrentPlayer('X');
-		// setIsGameEnded(false);
-		// setIsDraw(false);
-		// setField(Array(9).fill(''));
-		// playSound(currentPlayer, 'click');
-		store.dispatch({
+
+		dispatch({
 			type: 'INITIALIZE_STATE',
 			payload: {
 				field: Array(9).fill(''),
@@ -118,21 +76,18 @@ export const Game = () => {
 		playSound(currentPlayer, 'click');
 	};
 
-
+	// Обработчик кнопки "Выход"
 	const handleExitGame = () => {
 		playSound(currentPlayer, 'click');
 		window.close();
 	}
 
 	return <GameLayout
-
 		isDraw={isDraw}
 		isGameEnded={isGameEnded}
 		currentPlayer={currentPlayer}
-
 		onReset={handleReset}
 		ExitGame={handleExitGame}
-
 	/>;
 };
 
