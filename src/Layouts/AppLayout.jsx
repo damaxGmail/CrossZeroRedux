@@ -1,5 +1,5 @@
-import { ScreenSaver } from '../ScreenSaver/ScreenSaver';
-import { Game } from '../Game/Game';
+import { ScreenSaver } from '../components/ScreenSaver/ScreenSaver';
+import { Game } from '../components/Game/Game';
 
 import '../App.css';
 

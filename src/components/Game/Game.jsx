@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 
-import { store } from '../store';
+import { store } from '../../store';
 
 import { useSelector } from 'react-redux';
-import { selectCurrentState, selectField } from '../selectors'
+import { selectCurrentState, selectField } from '../../selectors'
 
 import { Reset } from '../Reset/Reset'
 import { Field } from '../Field/Field'
 import { Information } from '../Information/Information'
 
-import styles from '../Game/Game.module.css';
+import styles from './Game.module.css';
 import { useState, useEffect } from 'react';
 import { playSound } from '../Effect/Effect';
 

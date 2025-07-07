@@ -2,10 +2,10 @@ import styles from './Field.module.css'
 import { useEffect, useState } from 'react';
 
 import { useSelector, useStore } from 'react-redux';
-import { selectCurrentState, selectField } from '../selectors'
+import { selectCurrentState, selectField } from '../../selectors'
 
 
-import { handleCellClick } from '../ServiceFunction/General';
+import { handleCellClick } from '../../ServiceFunction/General';
 
 const FieldLayout = () => {
 
