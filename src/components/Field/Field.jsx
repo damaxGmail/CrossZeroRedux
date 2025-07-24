@@ -1,6 +1,6 @@
 import styles from './Field.module.css'
 
-import { useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { selectField, selectEffects, selectCurrentState } from '../../selectors'
 
 import { handleCellClick as handleCellClickLogic } from '../../ServiceFunction/General';

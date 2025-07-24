@@ -1,5 +1,5 @@
 
-import { useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { selectCurrentState } from '../../selectors'
 
 import { Reset } from '../Reset/Reset'
@@ -90,5 +90,3 @@ export const Game = () => {
 		ExitGame={handleExitGame}
 	/>;
 };
-
-
