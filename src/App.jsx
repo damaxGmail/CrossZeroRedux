@@ -27,11 +27,14 @@ const AppConnect = ({ dispatch }) => {
 		setPage('game'); // Переход на страницу игры
 	};
 
-	return <AppLayout
-		page={page}
-		goToGame={goToGame}
-	/>;
-
+	return (
+		<div className="max-w-[1280px] mx-auto p-8 text-center font-sans text-white bg-[#242424] min-h-screen">
+			<AppLayout
+				page={page}
+				goToGame={goToGame}
+			/>;
+		</div>
+	)
 };
 
 const mapDispatchToProps = (dispatch) => ({
