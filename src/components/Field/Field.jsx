@@ -1,17 +1,12 @@
 import styles from './Field.module.css'
 
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { selectField, selectEffects, selectCurrentState } from '../../selectors'
+import { connect } from 'react-redux';
 
 import { handleCellClick as handleCellClickLogic } from '../../ServiceFunction/General';
 
-const FieldLayout = () => {
-	const dispatch = useDispatch();
-
-	const field = useSelector(selectField);
-	const { knightEffectActive, dragonEffectActive } = useSelector(selectEffects);
-
-	const currentState = useSelector(selectCurrentState);
+const FieldLayout = (
+	{ field, knightEffectActive, dragonEffectActive, currentState, dispatch }
+) => {
 
 	const handleCellClick = (index) => {
 		handleCellClickLogic(dispatch, currentState, index);
@@ -58,7 +53,24 @@ const FieldLayout = () => {
 
 export const Field = () => {
 
-	return <FieldLayout
+	return <FieldLayoutConnect
 
 	/>
 }
+
+const mapStateToProps = (state) => {
+	return (
+		{
+			field: state.field,
+			knightEffectActive: state.knightEffectActive,
+			dragonEffectActive: state.dragonEffectActive,
+			currentState: state
+		}
+	)
+};
+
+const mapDispatchToProps = (dispatch) => ({
+	dispatch,
+});
+
+export const FieldLayoutConnect = connect(mapStateToProps, mapDispatchToProps)(FieldLayout);

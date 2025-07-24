@@ -1,6 +1,5 @@
+import { connect } from 'react-redux';
 
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { selectCurrentState } from '../../selectors'
 
 import { Reset } from '../Reset/Reset'
 import { Field } from '../Field/Field'
@@ -39,10 +38,8 @@ const GameLayout = ({
 	);
 }
 
-export const Game = () => {
-	const dispatch = useDispatch();
+const Game_Connect = ({ currentPlayer, isGameEnded, isDraw, dispatch }) => {
 
-	const { currentPlayer, isGameEnded, isDraw } = useSelector(selectCurrentState);
 
 	useEffect(() => {
 		dispatch({
@@ -90,3 +87,17 @@ export const Game = () => {
 		ExitGame={handleExitGame}
 	/>;
 };
+
+
+const mapStateToProps = (state) => ({
+	currentPlayer: state.currentPlayer,
+	isGameEnded: state.isGameEnded,
+	isDraw: state.isDraw
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	dispatch,
+});
+
+export const Game = connect(mapStateToProps, mapDispatchToProps)(Game_Connect);
+

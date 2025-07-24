@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 
 import { AppLayout } from './Layouts/AppLayout';
 
-export const App = () => {
-	const dispatch = useDispatch();
+const AppConnect = ({ dispatch }) => {
+
 	const [page, setPage] = useState('screensaver');
 
 	useEffect(() => {
@@ -33,5 +33,11 @@ export const App = () => {
 	/>;
 
 };
+
+const mapDispatchToProps = (dispatch) => ({
+	dispatch,
+});
+
+const App = connect(null, mapDispatchToProps)(AppConnect);
 
 export default App;
